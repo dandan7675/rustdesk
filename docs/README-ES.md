@@ -25,15 +25,6 @@ RustDesk agradece la contribución de todo el mundo. Lee [`docs/CONTRIBUTING.md`
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/en/packages/com.carriez.flutter_hbb)
 
-## Servidores gratis de uso público
-
-A continuación se muestran los servidores gratuitos, pueden cambiar a medida que pasa el tiempo. Si no estás cerca de uno de ellos, tu conexión puede ser lenta.
-
-| Ubicación | Compañía | Especificación |
-| --------- | ------------- | ------------------ |
-| Germany | Hetzner | 2 vCPU / 4GB RAM |
-| Ukraine (Kyiv) | [dc.volia](https://dc.volia.com) | 2 vCPU / 4GB RAM |
-
 ## Dependencias
 
 La versión Desktop usa [Sciter](https://sciter.com/) o Flutter para el GUI, este tutorial es solo para Sciter.
@@ -113,34 +104,6 @@ mv libsciter-gtk.so target/debug
 cargo run
 ```
 
-### Cambia Wayland a X11 (Xorg)
-
-RustDesk no soporta Wayland. Lee [esto](https://docs.fedoraproject.org/en-US/quick-docs/configuring-xorg-as-default-gnome-session/) para configurar Xorg en la sesión por defecto de GNOME.
-
-## Soporte para Wayland
-
-Wayland no parece proporcionar ninguna API para enviar pulsaciones de teclas a otras ventanas. Por lo tanto, rustdesk usa una API de nivel bajo, a saber, el dispositivo `/dev/uinput` (a nivel del kernel de Linux).
-
-Cuando wayland esta del lado controlado, hay que iniciar de la siguiente manera:
-```bash
-# Empezar el servicio uinput
-$ sudo rustdesk --service
-$ rustdesk
-```
-**Aviso**: La grabación de pantalla de Wayland utiliza diferentes interfaces. RustDesk actualmente sólo soporta org.freedesktop.portal.ScreenCast
-```bash
-$ dbus-send --session --print-reply       \
-  --dest=org.freedesktop.portal.Desktop \
-  /org/freedesktop/portal/desktop       \
-  org.freedesktop.DBus.Properties.Get   \
-  string:org.freedesktop.portal.ScreenCast string:version
-# No soportado
-Error org.freedesktop.DBus.Error.InvalidArgs: No such interface “org.freedesktop.portal.ScreenCast”
-# Soportado
-method return time=1662544486.931020 sender=:1.54 -> destination=:1.139 serial=257 reply_serial=2
-   variant       uint32 4
-```
-
 ## Como compilar con Docker
 
 Empieza clonando el repositorio y compilando el contenedor de docker:
@@ -183,6 +146,10 @@ Por favor, asegurate de que estás ejecutando estos comandos desde la raíz del 
 - **[src/platform](https://github.com/rustdesk/rustdesk/tree/master/src/platform)**: código específico de cada plataforma
 - **[flutter](https://github.com/rustdesk/rustdesk/tree/master/flutter)**: Flutter, código para moviles
 - **[flutter/web/js](https://github.com/rustdesk/rustdesk/tree/master/flutter/web/js)**: Javascript para el cliente web Flutter
+
+> [!Precaución]
+> **Descargo de responsabilidad por uso indebido:** <br>
+> Los desarrolladores de RustDesk no aprueban ni apoyan ningún uso no ético o ilegal de este software. El uso indebido, como el acceso no autorizado, el control o la invasión de la privacidad, está estrictamente en contra de nuestras directrices. Los autores no son responsables de ningún uso indebido de la aplicación.
 
 ## Capturas de pantalla
 
